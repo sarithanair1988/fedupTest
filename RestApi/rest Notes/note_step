@@ -1,0 +1,119 @@
+Rest Assured
+
+
+ Its a java library for testing Rest WebServices.
+ Its used to invoke restapi and validate the responses.
+ It support xml and json webservices.
+ it support http methods like post,get,put ,patch,delete and can validate the response from the request.
+ we can integrate with testNG,junit framework
+ 
+ pre-requistee
+ java
+ eclipse
+ maven
+testNG
+
+
+RestAssured  is a class
+response.getStatusCode
+response.getTime()
+response.getBody.asString
+response.getStatusLine()
+response.getHeader("content-type")
+Assert.assertEquals(actual,expected)
+
+
+requestSpecification res=restAssured.given();
+res.header("contentType","appication/json")
+    .header("username","athulia")
+     .header("password","1234e5")
+     .param("page",2)
+     res.auth().basic("username","password")
+     or
+     res.auth().preemtive().basic("username","password")
+     
+     
+     how to parse
+     resp.jsonPath().get("jsonPathString")
+     resp.jsonPath().getChar("path")
+     
+     resp.jsonPath().getList("data")
+      resp.jsonPath().getObject("data")
+     
+     
+     can use jsonpath finder to find json path
+restAssured.given().when().get("url").then().body("jsonPath',equalTo(''));// static import harmCrestMathers 
+restAssured.given().when().get("url").then().body("jsonPath',hasItems('22','23'));// static import harmCrestMathers 
+restAssured.given().when().get("url").then().statusCode(200)
+restAssured.given().when().get("url").then().statusCode(200).log().all()
+json simple,jackson,gson from maven to convert the map object into json object
+
+map<String,Object> obj1= new HashMap<String,Object>()
+map.put("id","2")
+map.put("username","athu")
+
+JSONObject req= new JSONObject(map)
+req.toJsonString()
+given().header("content_type","application/json").ContentType("application/json").accept(ContentType.Json)
+body(req.toJsonString()).when().post("url").then().
+  
+  
+  
+  validate json scehma...will provide by developer
+  Json Schema validator  dependency  from maven 
+keep the json schema in a file in classpath...target folder -->clase--> keep file
+
+get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
+
+
+soap api
+wizdler extention for chrome  for parse and 
+
+store body in a file and refer it here
+1.creat file with xml extention store at any location
+
+FileInputStream fileInputStream = new FileInputStream(new File("./SOAPRequest/add.xml"));
+String requestBody = IOUtils.toString(fileInputStream, "UTF-8");
+
+Note: IOUtils comes from apache.commons
+If required get the pom dependency
+
+File file = new File("./SOAPRequest/add.xml");
+ if (file.exists()){
+  System.out.println("  - -  File exists");
+ }
+
+given().
+ contentType("text/xml").
+ header("Accept", "text/xml").
+ body(requestBody)
+
+when().post("/calculator.asmx").
+
+then().statusCode(200).log().all();
+
+tep 1 : Create or Get XML Schema (XSD)
+Step 2 : Add XSD to classpath in the project - src/main/resources
+Step 3 : Add a new class
+Step 4 : Create a function : Annotate with @Test (TestNG)
+Step 5 : Add code to run a API request with REST assured
+Step 6 : Add code to validate XML response against XML Schema (XSD)
+
+assertThat().body(matchesXsdInClasspath("calculator.xsd"));
+import static io.restassured.matcher.RestAssuredMatchers.matchesXsdInClasspath;
+
+Step 7 : Run and verify
+
+freeformatter 
+
+wsdl
+
+
+
+
+
+
+
+
+
+
